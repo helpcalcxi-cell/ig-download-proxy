@@ -47,6 +47,10 @@ export default {
     const sig = searchParams.get('sig') || '';
     const filename = (searchParams.get('name') || 'instagram.mp4').replace(/[^\w.\-]/g, '_');
 
+    // inline=1 -> page par dikhane ke liye (thumbnail, video player).
+    // Iske bina browser har preview par download shuru kar deta.
+    const inline = searchParams.get('inline') === '1';
+
     if (!target || !exp) return new Response('Missing parameters', { status: 400 });
 
     // exp Instagram ke apne link ki expiry hoti hai — Vercel wahi bhejta hai
@@ -83,7 +87,7 @@ export default {
 
     const headers = new Headers();
     headers.set('Content-Type', upstream.headers.get('content-type') || 'application/octet-stream');
-    headers.set('Content-Disposition', `attachment; filename="${filename}"`);
+    headers.set('Content-Disposition', inline ? 'inline' : `attachment; filename="${filename}"`);
     headers.set('Cache-Control', 'public, max-age=3600');
     headers.set('X-Content-Type-Options', 'nosniff');
     headers.set('Access-Control-Allow-Origin', '*');
