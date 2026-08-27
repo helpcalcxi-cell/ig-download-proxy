@@ -1,0 +1,7 @@
+name = "ig-download-proxy"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+# DOWNLOAD_SECRET yaha NAHI likhna — wo Cloudflare dashboard me
+# Settings -> Variables and Secrets -> Secret ke roop me daalna hai.
+# Yaha likhoge to wo GitHub par public ho jayega.
